@@ -1,4 +1,4 @@
-﻿/*
+/*
  * COPYRIGHT LICENSE: This information contains sample code provided in source code form. You may copy, modify, and distribute
  * these sample programs in any form without payment to IBM® for the purposes of developing, using, marketing or distributing
  * application programs conforming to the application programming interface for the operating platform for which the sample code is written.
@@ -9,7 +9,7 @@
  * IBM HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS OR MODIFICATIONS TO THE SAMPLE SOURCE CODE.
  */
  
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;

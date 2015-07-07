@@ -47,13 +47,31 @@ namespace AdapterBasedAuthWin8
         public MainPage()
         {
             this.InitializeComponent();
+            this.NavigationCacheMode = NavigationCacheMode.Required;
             _this = this;
+        }
+
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// </summary>
+        /// <param name="e">Event data that describes how this page was reached.
+        /// This parameter is typically used to configure the page.</param>
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // TODO: Prepare page for display here.
+
+            // TODO: If your application contains multiple pages, ensure that you are
+            // handling the hardware Back button by registering for the
+            // Windows.Phone.UI.Input.HardwareButtons.BackPressed event.
+            // If you are using the NavigationHelper provided by some templates,
+            // this event is handled for you.
         }
 
         public ChallengeHandler getChallengeHandler()
         {
             return ch;
         }
+
 
         private void ConnectServer_Click(object sender, RoutedEventArgs e)
         {
@@ -79,7 +97,6 @@ namespace AdapterBasedAuthWin8
             { Debug.WriteLine(ex.StackTrace); }
         }
 
-
         private void invokeProcedure_Click(object sender, RoutedEventArgs e)
         {
             WLResourceRequest adapter = new WLResourceRequest("/adapters/AuthAdapter/getSecretData", "GET");
@@ -87,22 +104,6 @@ namespace AdapterBasedAuthWin8
             Object[] parameters = { 0 };
             MyInvokeListener listener = new MyInvokeListener(this);
             adapter.send(listener);
-            
-        }
-
-        public void AddTextToConsole(String consoleText)
-        {
-            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                 async () =>
-                 {
-                     MainPage._this.Console.Text = consoleText;
-
-                 });
-        }
-
-        private void ClearConsole(object sender, DoubleTappedRoutedEventArgs e)
-        {
-            Console.Text = "";
         }
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
@@ -123,21 +124,16 @@ namespace AdapterBasedAuthWin8
             ((CustomAdapterChallengeHandler)MainPage._this.getChallengeHandler()).sendResponse("", "");
         }
 
-        private void ShowConsole(object sender, TappedRoutedEventArgs e)
+        public void AddTextToConsole(String consoleText)
         {
-            MainPage._this.ConsolePanel.Visibility = Visibility.Visible;
-            MainPage._this.InfoPanel.Visibility = Visibility.Collapsed;
-            MainPage._this.ConsoleTab.Foreground = new SolidColorBrush(Colors.DodgerBlue);
-            MainPage._this.InfoTab.Foreground = new SolidColorBrush(Colors.Gray);
+            CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+                 async () =>
+                 {
+                     MainPage._this.Console.Text = consoleText;
+
+                 });
         }
 
-        private void ShowInfo(object sender, TappedRoutedEventArgs e)
-        {
-            MainPage._this.ConsolePanel.Visibility = Visibility.Collapsed;
-            MainPage._this.InfoPanel.Visibility = Visibility.Visible;
-            MainPage._this.InfoTab.Foreground = new SolidColorBrush(Colors.DodgerBlue);
-            MainPage._this.ConsoleTab.Foreground = new SolidColorBrush(Colors.Gray);
-        }
 
         public void showChallenge()
         {
@@ -159,6 +155,11 @@ namespace AdapterBasedAuthWin8
                     MainPage._this.ConnectServer.IsEnabled = true;
                     MainPage._this.InvokeProcedure.IsEnabled = true;
                 });
+        }
+
+        private void ClearConsole(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            Console.Text = "";
         }
     }
 }
