@@ -60,7 +60,7 @@ namespace AdapterBasedAuthWin8
             JObject responseJSON = response.getResponseJSON();
 
             if (response == null || response.getResponseText() == null ||
-                responseJSON["authRequired"] == null || String.Compare(responseJSON["authRequired"].ToString(), "false", StringComparison.OrdinalIgnoreCase) == 0)
+                responseJSON["authStatus"] == null || String.Compare(responseJSON["authStatus"].ToString(), "complete", StringComparison.OrdinalIgnoreCase) == 0)
             {
                 return false;
             }
